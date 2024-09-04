@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -rf CD/appspec.yaml
+rm -rf appspec.yaml
