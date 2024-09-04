@@ -45,9 +45,9 @@ pipeline {
         }
        
         stage('Package and Upload') {
-            when {
-                branch 'main'
-            }
+            // when {
+            //     branch 'main'
+            // }
             steps {
                 script {
                     // Package the build for deployment
