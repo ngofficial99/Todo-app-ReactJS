@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        nodejs '20.15.0'
+    }
 
     environment {
         S3_BUCKET = 'reactjs-todo-app-bucket'
@@ -8,6 +11,7 @@ pipeline {
         CODEDEPLOY_DEPLOYMENT_GROUP = 'Todo-app-test-deployment-group'
         AWS_REGION = 'us-east-1' // Replace with your region
     }
+
 
     stages {
         stage('Checkout') {
