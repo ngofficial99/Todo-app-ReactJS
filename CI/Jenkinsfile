@@ -51,7 +51,7 @@ pipeline {
             steps {
                 script {
                     // Package the build for deployment
-                    sh 'zip -r build.zip build/*'
+                    sh 'zip -r build.zip *'
 
                     // Upload the package to S3
                     sh """
