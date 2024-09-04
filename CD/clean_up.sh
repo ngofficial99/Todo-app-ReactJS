@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -rf /home/ubuntu/Todo-app-ReactJS/*
+sudo rm -rf /home/ubuntu/Todo-app-ReactJS/*
