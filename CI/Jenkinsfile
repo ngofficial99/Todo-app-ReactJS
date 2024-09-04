@@ -62,9 +62,9 @@ pipeline {
         }
        
         stage('Deploy') {
-            when {
-                branch 'main'
-            }
+            // when {
+            //     branch 'main'
+            // }
             steps {
                 script {
                     // Trigger AWS CodeDeploy deployment
