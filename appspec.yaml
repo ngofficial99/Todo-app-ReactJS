@@ -7,7 +7,7 @@ hooks:
   ApplicationStop:
     - location: CD/stop_server.sh
       timeout: 300
-      runas: QF
+      runas: root
   BeforeInstall:
     - location: CD/clean_up.sh
       timeout: 300
@@ -15,8 +15,8 @@ hooks:
   ApplicationStart:
     - location: CD/start_server.sh
       timeout: 300
-      runas: QF
+      runas: root
   ValidateService:
     - location: CD/validate_service.sh
       timeout: 300
-      runas: QF
+      runas: root
