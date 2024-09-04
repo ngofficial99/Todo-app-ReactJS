@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -rf appspec.yaml
+rm -rf /home/ubuntu/Todo-app-ReactJS/*
