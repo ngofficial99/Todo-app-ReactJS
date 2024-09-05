@@ -12,7 +12,6 @@ pipeline {
         AWS_REGION = 'us-east-1' // Replace with your region
     }
 
-
     stages {
         stage('Checkout') {
             steps {
@@ -20,7 +19,11 @@ pipeline {
             }
         }
        
+        // The pipeline will only run when it's a pull request (PR)
         stage('Install Dependencies') {
+            when {
+                expression { env.CHANGE_ID != null }  // Only runs for pull requests
+            }
             steps {
                 script {
                     sh 'npm install'
@@ -29,25 +32,32 @@ pipeline {
         }
        
         stage('Run Tests') {
+            when {
+                expression { env.CHANGE_ID != null }  // Only runs for pull requests
+            }
             steps {
                 script {
                     sh 'npm test'
                 }
             }
         }
-       
+
         stage('Build') {
+            when {
+                expression { env.CHANGE_ID != null }  // Only runs for pull requests
+            }
             steps {
                 script {
                     sh 'npm run build'
                 }
             }
         }
-       
+
+        // Packaging and Uploading the build can be skipped on pull requests but might still run if desired
         stage('Package and Upload') {
-            // when {
-            //     branch 'main'
-            // }
+            when {
+                expression { env.CHANGE_ID != null }  // Only runs for pull requests
+            }
             steps {
                 script {
                     // Package the build for deployment
@@ -60,11 +70,15 @@ pipeline {
                 }
             }
         }
-       
+
+        // CodeDeploy will only run on merge to the main branch
         stage('Deploy') {
-            // when {
-            //     branch 'main'
-            // }
+            when {
+                branch 'main' // Only deploy when merged into the main branch
+                expression { env.CHANGE_ID == null }  // Ensures it doesn't run during pull requests
+
+
+            }
             steps {
                 script {
                     // Trigger AWS CodeDeploy deployment
@@ -79,7 +93,7 @@ pipeline {
             }
         }
     }
-   
+
     post {
         always {
             // Clean up after build
